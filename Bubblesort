@@ -1,0 +1,21 @@
+def bubble_sort(bublist):
+  sorted = False
+  while not sorted:
+    sorted = True
+    # if the below 'if' function isn't triggered, sorted remains true, breaking the loop.
+    for x in range(0, len(bublist)-1):
+      #The last number isn't included above because the function compares the number to the one after it
+      if bublist[x] > bublist[x+1]:
+        #If it is, sorted becomes false, and the loop is repeated.
+        sorted = False
+        bublist[x], bublist[x+1] = bublist[x+1], bublist[x]
+
+  return bublist
+
+question = input('Please input a sorted list\n')
+
+broken_nums = list(question.split(','))
+
+given_list = list(map(int, broken_nums))
+
+print('\nYour sorted list is:\n', bubble_sort(given_list))
