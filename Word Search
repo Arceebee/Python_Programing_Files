@@ -1,0 +1,44 @@
+question_1 = input('Welcome to the word searcher!\n\n\nWould you like the searcher to find words floating between spaces (individual words), or simply search for the text regardless of whether or not there are spaces in between the word? ex.(aawordaa vs. word ) (i for individual, at for any text):\n' )
+
+
+if question_1 == 'i':
+  def word_search(search_word, text):
+    
+    lower_word = search_word.lower()
+  
+    text = text.lower()
+  
+    words = text.split()
+
+    occurances = 0
+
+    for word in words:
+      if word == lower_word:
+        occurances += 1
+
+    return f'The word has occured {occurances} times'
+
+
+elif question_1 == 'at':
+  def word_search(search_word, text):
+  
+    text = text.lower()
+    search_word = search_word.lower()
+
+    count = 0
+    text_length = len(text)
+    word_length = len(search_word)
+
+    for i in range(text_length - word_length + 1):
+        if text[i:i + word_length] == search_word:
+            count += 1
+
+    return count
+    
+a = input('Please input the search word below:\n')
+
+b = input('Please provide a text below:\n')
+
+word_search(a,b)
+
+print(word_search(a,b))
