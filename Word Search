@@ -1,7 +1,38 @@
-question_1 = input('Welcome to the word searcher!\n\n\nWould you like the searcher to find words floating between spaces (individual words), or simply search for the text regardless of whether or not there are spaces in between the word? ex.(aawordaa vs. word ) (i for individual, at for any text):\n' )
+print('Welcome to the word searcher!\n')
+
+while True:
+  question_1 = input('Would you like to have the program read a file from the computer or would you rather manually type the text that will be searched? ("f" for file "t" for typed text)\n')
+  #This asks the user to determine where the program will obtain the text that will be searched
 
 
-if question_1 == 'i':
+
+
+
+  if question_1 == 'f':
+    file_path = input('File path:\n')
+    #This adds an extra step that determines which file to read if the user wants the program to read a file
+    #Note: 'file_path' is a raw file path; It needs to be altered slightly to work with the open function
+    break
+
+  elif question_1 == 't':
+    break
+
+  else:
+    print('\nYou can only type "f" or "t". Try again\n')
+#Lines 11-20 ensure that question 1 gets answered correctly.
+
+
+
+
+
+question_2 = input('\nWould you like the searcher to find individual words, or find words in the text regardless of whether or not the word is part of another word? ex.( word vs. aawordaa) ("i" for individual words, "at" for any text):\n' )
+#Line 27 gives the user two choices: The first choice is to have the program only accept the search word if it is an individual word and not part of another word. The second choice is to have the program accept the search word regardless of where it is
+
+
+
+
+
+if question_2 == 'i':
   def word_search(search_word, text):
     
     lower_word = search_word.lower()
@@ -19,26 +50,37 @@ if question_1 == 'i':
     return f'The word has occured {occurances} times'
 
 
-elif question_1 == 'at':
+elif question_2 == 'at':
   def word_search(search_word, text):
   
     text = text.lower()
     search_word = search_word.lower()
 
-    count = 0
+    occurrences = 0
     text_length = len(text)
     word_length = len(search_word)
 
     for i in range(text_length - word_length + 1):
         if text[i:i + word_length] == search_word:
-            count += 1
+            occurrences += 1
 
-    return count
+    return occurrences
     
-a = input('Please input the search word below:\n')
+Search_word = input('Please input the search word below:\n')
 
-b = input('Please provide a text below:\n')
+if question_1 == 'f':
+  #If the user gave us a file path it needs to be altered, the backslashes need to be replaced with double backslashes.
+  file_path = file_path.replace('\\', '\\\\')
+  #While it looks like the program will replace two backslashes with four. It instead will replace one backslash with two; every backslash needs an extra backslash as an escape character to tell the computer that we are referring to the literal backslash character
+  with open(file_path) as file:
+    file_contents = file.read()
+    Text = file_contents
 
-word_search(a,b)
+elif question_1 == 't':
+  Text = input('Please provide a text below:\n')
 
-print(word_search(a,b))
+
+
+final_answer = word_search(Search_word, Text)
+
+print(f'Your word was found {final_answer} times')
